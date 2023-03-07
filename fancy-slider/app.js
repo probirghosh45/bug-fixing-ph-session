@@ -15,7 +15,7 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
 // show images 
 const showImages = (images) => {
-  console.log("images" , images);
+  // console.log("images" , images);
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
   // show gallery title
@@ -118,6 +118,7 @@ searchBtn.addEventListener('click', function () {
   clearInterval(timer);
   const search = document.getElementById('search');
   getImages(search.value)
+  search.value =""
   sliders.length = 0;
 })
 
