@@ -159,7 +159,7 @@ const displayReportedPosts = () => {
 };
 
 const loadPosts = async () =>{
-  let data = await fetch('https://raw.githubusercontent.com/ProgrammingHero1/insta-shohor/main/data/posts.json');
+  let data = await fetch('https://raw.githubusercontent.com/probirghosh45/bug-fixing/starter/dummy-data/dummy-data.json');
   posts = await data.json();
   showPosts(posts);
 }
