@@ -2,6 +2,7 @@ let posts=[ ];
 
 const likedPostsId = [];
 const reportedPostsId = [];
+console.log("reported post info", reportedPostsId);
 
 const getLikedPosts = () => {
     return posts.filter((post) => likedPostsId.includes(post.id));
@@ -27,7 +28,8 @@ const reportPost = (id) => {
 };
 
 const displayContent = (text) => {
-    return text.length < 30 ? 'text' : text.slice(0, 30) + "<span class='fw-bold'>... read more</span>";
+  // console.log("text info",text);
+    return text.length < 40 ? text : text.slice(0, 30) + "<span class='fw-bold'>... read more</span>";
 };
 
 const switchTab = (id) => {
@@ -51,7 +53,10 @@ const switchTab = (id) => {
 };
 
 const createPost = (post) => {
-    const image = post.image;
+    //  console.log("post data",post);
+    const image = post.image
+    const userImage = post.userImage;
+    const userName = post.userName;
     const div = document.createElement( "article" );
     div.classList.add( "post" );
     div.innerHTML = `
@@ -62,9 +67,9 @@ const createPost = (post) => {
                     target="_blank"
                     class="post__avatar"
                   >
-                    <img src="${image}" alt="User Picture" />
+                    <img src="${userImage}" alt="User Picture" />
                   </a>
-                  <a href="#" class="post__user">phero</a>
+                  <a href="#" class="post__user">${userName}</a>
                 </div>
 
                 <button class="post__more-options">
@@ -111,7 +116,7 @@ const createPost = (post) => {
                     </a>
 
                     <span>Liked by
-                      <a class="post__name--underline" href="#">user123</a> and
+                      <a class="post__name--underline" href="#">Shakib bro</a> and
                       <a href="#">73 others</a></span>
                   </div>
 
@@ -120,9 +125,9 @@ const createPost = (post) => {
                   <div class="post__description">
                     <small>
                       <a class="post__name--underline" href="#">
-                          ${post.comments?.user}
+                          ${post.comments[0]?.user}
                       </a>
-                      ${post.comments?.text}
+                      ${post.comments[0]?.text}
                     </small>
                   </div>
                   <span class="post__date-time">30 minutes ago</span>
@@ -159,7 +164,7 @@ const displayReportedPosts = () => {
 };
 
 const loadPosts = async () =>{
-  let data = await fetch('https://raw.githubusercontent.com/ProgrammingHero1/insta-shohor/main/data/posts.json');
+  let data = await fetch('https://raw.githubusercontent.com/probirghosh45/bug-fixing/starter/dummy-data/dummy-data.json');
   posts = await data.json();
   showPosts(posts);
 }
