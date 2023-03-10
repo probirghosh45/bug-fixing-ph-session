@@ -111,7 +111,7 @@ const createPost = (post) => {
                     </a>
 
                     <span>Liked by
-                      <a class="post__name--underline" href="#">user123</a> and
+                      <a class="post__name--underline" href="#">Shakib Bro</a> and
                       <a href="#">73 others</a></span>
                   </div>
 
