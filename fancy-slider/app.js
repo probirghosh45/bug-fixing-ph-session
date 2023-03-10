@@ -40,9 +40,10 @@ const getImages = (query) => {
         showImages(data.hits)
       }
       else {
-        errorMessage.innerText ="Data Not Found"
+        const imagesArea = document.querySelector('.images');
         imagesArea.style.display = 'none';
-        return
+        return errorMessage.innerText ="Data Not Found"
+        
       }
     })
     .catch(err => console.log(err))
@@ -137,6 +138,7 @@ searchBtn.addEventListener('click', function () {
   clearInterval(timer);
   const search = document.getElementById('search');
   if (search.value.length == 0 ) {
+    imagesArea.style.display = 'none';
     errorMessage.innerText ="Invalid search"
     return
   }
