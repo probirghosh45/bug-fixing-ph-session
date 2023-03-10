@@ -4,9 +4,7 @@ const galleryHeader = document.querySelector('.gallery-header');
 const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
-
-
-
+const errorMessage = document.getElementById('error-message');
 // selected image 
 let sliders = [];
 
@@ -32,38 +30,20 @@ const showImages = (images) => {
 
 }
 
-
-const searchPhotos = ()=>{
-  const searchField = document.getElementById('search');
-  const errorMessage= document.getElementById('error-message');
-  if (searchField.value==='') {
-    return errorMessage.innerText="বাদ দ্যান ভাই ☕🍵☕🫖"
-  }
-
-  const getImages = (query) => {
-    fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
-      .then(response => response.json())
-      .then(data => {
-        // return console.log(data);
+const getImages = (query) => {
+  fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
+    .then(response => response.json())
+    .then(data => {
+      // return console.log(data);
+      if (data.hits.length > 0) {
         showImages(data.hits)
-      })
-      .catch(err => {
-        return errorMessage.innerText="আজাইরা সার্চ বাদ দ্যান ভাই ☕🍵☕🫖"
-      })
-      errorMessage.innerText=""
-  }
-  searchBtn.addEventListener('click', function () {
-    document.querySelector('.main').style.display = 'none';
-    clearInterval(timer);
-    const search = document.getElementById('search');
-    getImages(search.value)
-    search.value =""
-    sliders.length = 0;
-  })
-  
+      }
+      else {
+        errorMessage.innerText ="Data Not Found"
+      }
+    })
+    .catch(err => console.log(err))
 }
-
-
 
 let slideIndex = 0;
 const selectItem = (event, img) => {
@@ -139,9 +119,19 @@ const changeSlide = (index) => {
   items[index].style.display = "block"
 }
 
+searchBtn.addEventListener('click', function () {
+  document.querySelector('.main').style.display = 'none';
+  clearInterval(timer);
+  const search = document.getElementById('search');
+  if (search.value.length == 0 ) {
+    errorMessage.innerText ="Invalid search"
+    return
+  }
+  getImages(search.value)
+  search.value =""
+  sliders.length = 0;
+})
 
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
-
-
