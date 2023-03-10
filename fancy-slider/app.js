@@ -31,6 +31,7 @@ const showImages = (images) => {
 }
 
 const getImages = (query) => {
+
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => {
@@ -75,8 +76,7 @@ const createSlider = () => {
 
   sliderContainer.appendChild(prevNext)
   document.querySelector('.main').style.display = 'block';
-  // hide image aria
-  imagesArea.style.display = 'none';
+  
   const duration = document.getElementById('duration').value || 1000;
   sliders.forEach(slide => {
     let item = document.createElement('div')
@@ -87,10 +87,19 @@ const createSlider = () => {
     sliderContainer.appendChild(item)
   })
   changeSlide(0)
-  timer = setInterval(function () {
+  if (duration > 0) {
+    // hide image aria
+  imagesArea.style.display = 'none';
+      timer = setInterval(function () {
     slideIndex++;
     changeSlide(slideIndex);
   }, duration);
+  errorMessage.innerText = ""
+  }
+  else{
+    errorMessage.innerText = "Please Provide Positive value";
+  }
+
 }
 
 // change slider index 
