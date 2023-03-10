@@ -41,6 +41,8 @@ const getImages = (query) => {
       }
       else {
         errorMessage.innerText ="Data Not Found"
+        imagesArea.style.display = 'none';
+        return
       }
     })
     .catch(err => console.log(err))
@@ -146,3 +148,13 @@ searchBtn.addEventListener('click', function () {
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
+
+
+// Enter Key Trigger
+const search = document.getElementById('search');
+search.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    searchBtn.click();
+  }
+});
