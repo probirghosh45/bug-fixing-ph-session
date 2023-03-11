@@ -6,7 +6,7 @@ const searchFood = () => {
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchData}`;
     fetch(url)
     .then(res => res.json())
-    .then(data => displayMealInfo(data.meals))
+    .then(data => displayMealInfo(data))
 }
 
 const displayMealInfo = mealData => {
